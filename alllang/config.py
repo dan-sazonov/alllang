@@ -2,6 +2,7 @@ import colorama
 
 
 class ColorMethods:
+    # todo add fucking docstring
     def __init__(self):
         colorama.init()
         self.reset = colorama.Style.RESET_ALL
