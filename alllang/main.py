@@ -21,8 +21,18 @@ def file_to_list(path: str) -> list[str]:
     return words
 
 
-def translate_all():
+def translate_all(word: str) -> dict[str, str]:
+    """
+    Translates the `word` into all languages
+
+    :param word: the word to be translated
+    :return: dict where the key is the name of the language, the value is the translation
+    """
+    out = dict()
+
     for lang in _lang_list:
         my_translator = GoogleTranslator(source='auto', target=lang)
-        result = my_translator.translate(text='привет')
-        print(result)
+        result = my_translator.translate(text=word)
+        out[lang] = result
+
+    return out
