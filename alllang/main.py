@@ -1,7 +1,4 @@
-import os
-import alllang.config as config
-
-_c = config.ColorMethods()
+from alllang.cli import is_txt_file as _check_path
 
 
 def file_to_list(path: str) -> list[str]:
@@ -11,12 +8,7 @@ def file_to_list(path: str) -> list[str]:
     :param path: absolute or relative path to the txt file
     :return: list of str
     """
-
-    if (not os.path.exists(path)) or (not os.path.isfile(path)):
-        print(f"{_c.red}[err]{_c.reset} Path of the file is Invalid")
-
-    if not path.endswith('.txt'):
-        print(f"{_c.yellow}[warn]{_c.reset} The path does not go to a text file, encoding error is possible")
+    _check_path(path)
 
     with open(path, 'r', encoding='utf-8') as f:
         file_content = f.read().split('\n')
