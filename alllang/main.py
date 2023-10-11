@@ -21,9 +21,9 @@ def _file_to_list(path) -> list[str]:
 
 
 class Translator:
-    def __init__(self):
-        self.path_to_file = None
-        self.lang_list = _lang_list
+    def __init__(self, path_to_file=None, lang_list=None):
+        self.path_to_file = path_to_file
+        self.lang_list = lang_list if lang_list else _lang_list
 
     def set_file(self, path):
         _check_path(path)
