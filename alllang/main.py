@@ -48,11 +48,13 @@ class Translator:
 
         return out
 
-    def transl_from_file(self):
-        word_list = _file_to_list(self.path_to_file)
+    def transl_word_list(self, word_list):
         out = dict()
 
         for word in word_list:
             out[word] = self.all_lang_trans(word=word)
 
         return out
+
+    def transl_from_file(self):
+        return self.transl_word_list(_file_to_list(self.path_to_file))
