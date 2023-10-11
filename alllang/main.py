@@ -1,6 +1,7 @@
 from alllang.cli import is_txt_file as _check_path
 
 from deep_translator import GoogleTranslator
+import re
 
 _lang_list = list(GoogleTranslator().get_supported_languages())
 
@@ -18,6 +19,11 @@ def _file_to_list(path) -> list[str]:
         words = list(filter(None, file_content))  # remove empty strings
 
     return words
+
+
+def _is_latin(string):
+    pattern = r'^[a-zA-Z\u0080-\u024F]+$'
+    return bool(re.match(pattern, string.replace("'", "")))
 
 
 class Translator:
