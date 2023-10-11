@@ -1,5 +1,9 @@
 from alllang.cli import is_txt_file as _check_path
 
+from deep_translator import GoogleTranslator
+
+_lang_list = GoogleTranslator().get_supported_languages()
+
 
 def file_to_list(path: str) -> list[str]:
     """
@@ -15,3 +19,10 @@ def file_to_list(path: str) -> list[str]:
         words = list(filter(None, file_content))  # remove empty strings
 
     return words
+
+
+def translate_all():
+    for lang in _lang_list:
+        my_translator = GoogleTranslator(source='auto', target=lang)
+        result = my_translator.translate(text='привет')
+        print(result)
