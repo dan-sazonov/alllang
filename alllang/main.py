@@ -39,3 +39,16 @@ def all_lang_trans(word: str, lang_list=None) -> dict[str, str]:
         out[lang] = result
 
     return out
+
+
+def transl_from_file(path: str, lang_list=None):
+    if lang_list is None:
+        lang_list = _lang_list
+
+    word_list = file_to_list(path)
+    out = dict()
+
+    for word in word_list:
+        out[word] = all_lang_trans(word, lang_list=lang_list)
+
+    return out
