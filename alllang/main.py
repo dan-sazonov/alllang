@@ -1,4 +1,7 @@
 import os
+import alllang.config as config
+
+_c = config.ColorMethods()
 
 
 def file_to_list(path: str) -> list[str]:
@@ -10,7 +13,7 @@ def file_to_list(path: str) -> list[str]:
     """
 
     if (not os.path.exists(path)) or (not os.path.isfile(path)):
-        print("Path of the file is Invalid")
+        print(f"{_c.red}[err]{_c.reset} Path of the file is Invalid")
 
     with open(path, 'r', encoding='utf-8') as f:
         file_content = f.read().split('\n')
