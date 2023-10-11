@@ -1,3 +1,5 @@
+from unidecode import unidecode
+
 from alllang.cli import is_txt_file as _check_path
 
 from deep_translator import GoogleTranslator
@@ -27,8 +29,10 @@ def _is_latin(string):
 
 
 class Translator:
-    def __init__(self, lang_list=None):
+
+    def __init__(self, lang_list=None, latin_spelling=False):
         self.lang_list = lang_list if lang_list else _lang_list
+        self.latin_spelling = latin_spelling
 
     def set_lang_list(self, lang_list):
         self.lang_list = lang_list
@@ -45,6 +49,7 @@ class Translator:
         for lang in self.lang_list:
             my_translator = GoogleTranslator(source='auto', target=lang)
             result = my_translator.translate(text=word)
+            result = unidecode(result) if (self.latin_spelling and not _is_latin(result)) else result
             out[lang] = result
 
         return out
