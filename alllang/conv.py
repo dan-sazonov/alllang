@@ -27,15 +27,26 @@ def create_json(data, dest_path=None):
         json.dump(data, json_file, ensure_ascii=False)
 
 
+class _Excel:
+    def __init__(self, file_name, data):
+        self.file_name = file_name
+        self.data = data
+        self.book = openpyxl.Workbook()
+        self.sheet = self.book.active
+
+    def save_file(self):
+        self.book.save(self.file_name)
+        self.book.close()
+
+    def create_demo(self):
+        self.sheet[1][0].value = 10
+
+
 def create_xlsx(data, dest_path=None):
     file_name = _get_file_name(dest_path, 'xlsx')
 
-    book = openpyxl.Workbook()
-    sheet = book.active
+    table = _Excel(data=data, file_name=file_name)
+    table.create_demo()
+    table.save_file()
 
-    sheet[1][0].value = 10
-
-    book.save(file_name)
-    book.close()
-
-    print(_get_table_titles(data))
+    print('ok')
