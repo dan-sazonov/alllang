@@ -55,15 +55,25 @@ class _Excel:
         for j in range(0, len(self.langs)):
             self._sheet[f'A{j + 2}'].value = self.langs[j]
 
+    def add_data(self):
+        # колонки с нуля, строки с единицы
+        col_index = 0
+        cols_keys = self._gen_words_keys()
+        print(cols_keys)
+
+        for i in self.data.values():
+            row_index = 1
+
+            for j in i.values():
+                row_index += 1
+                print(j, row_index)
+                self._sheet[f'{cols_keys[col_index]}{row_index}'].value = j
+
+            col_index += 1
+
     def save_file(self):
         self._book.save(self.file_name)
         self._book.close()
-
-    def create_demo(self):
-        self._sheet['B2'].value = 'lorem'
-        self._sheet['B3'].value = 'ipsum'
-        self._sheet['B4'].value = 'dolor'
-        self._sheet['B5'].value = 'sit'
 
 
 def create_xlsx(data, dest_path=None):
@@ -71,7 +81,5 @@ def create_xlsx(data, dest_path=None):
 
     table = _Excel(data=data, file_name=file_name)
     table.create_titles()
-    table.create_demo()
+    table.add_data()
     table.save_file()
-
-    print('ok')
