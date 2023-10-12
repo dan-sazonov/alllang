@@ -1,7 +1,4 @@
 from unidecode import unidecode
-
-from alllang.cli import is_txt_file as _check_path
-
 from deep_translator import GoogleTranslator
 import re
 
@@ -41,13 +38,6 @@ class Translator:
         return unidecode(word) if (self.latin_spelling and not _is_latin(word)) else word
 
     def all_lang_trans(self, word: str):
-        """
-        Translates the `word` into all languages
-
-        :param lang_list: list[str]. Languages into which the word will be translated. By default, all supported languages
-        :param word: the word to be translated
-        :return: dict where the key is the name of the language, the value is the translation
-        """
         translated = dict()
         out = dict()
         for lang in self.lang_list:
