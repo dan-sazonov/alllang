@@ -40,7 +40,7 @@ class Translator:
     def _check_spelling(self, word):
         return unidecode(word) if (self.latin_spelling and not _is_latin(word)) else word
 
-    def all_lang_trans(self, word: str) -> dict[str, str]:
+    def all_lang_trans(self, word: str):
         """
         Translates the `word` into all languages
 
@@ -48,19 +48,21 @@ class Translator:
         :param word: the word to be translated
         :return: dict where the key is the name of the language, the value is the translation
         """
+        translated = dict()
         out = dict()
         for lang in self.lang_list:
             my_translator = GoogleTranslator(source='auto', target=lang)
             result = my_translator.translate(text=word)
-            out[lang] = self._check_spelling(result)
+            translated[lang] = self._check_spelling(result)
 
+        out[word] = translated
         return out
 
     def transl_word_list(self, word_list):
         out = dict()
 
         for word in word_list:
-            out[word] = self.all_lang_trans(word=word)
+            out.update(self.all_lang_trans(word=word))
 
         return out
 
