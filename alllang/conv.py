@@ -25,20 +25,21 @@ class _Excel:
     def __init__(self, file_name, data):
         self.file_name = file_name
         self.data = data
-        self.book = openpyxl.Workbook()
-        self.sheet = self.book.active
+        self._book = openpyxl.Workbook()
+        self._sheet = self._book.active
+
+        self.words = list(self.data.keys())
+        self.langs = list(self.data[self.words[0]].keys())
 
     def save_file(self):
-        self.book.save(self.file_name)
-        self.book.close()
-
-    def _get_table_titles(self):
-        words = list(self.data.keys())
-        langs = list(self.data[words[0]].keys())
-        return words, langs
+        self._book.save(self.file_name)
+        self._book.close()
 
     def create_demo(self):
-        self.sheet[1][0].value = 10
+        self._sheet['A1'].value = 10
+        self._sheet['B1'].value = 11
+        self._sheet['A2'].value = 20
+        self._sheet['B2'].value = 21
 
 
 def create_xlsx(data, dest_path=None):
