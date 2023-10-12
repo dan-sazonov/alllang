@@ -12,6 +12,12 @@ def _get_file_name(path, ext):
     return os.path.normpath(res)
 
 
+def _get_table_titles(data: dict):
+    words = list(data.keys())
+    langs = list(data[words[0]].keys())
+    return words, langs
+
+
 def create_json(data, dest_path=None):
     file_name = _get_file_name(dest_path, 'json')
 
