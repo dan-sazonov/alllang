@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+from itertools import product
 
 import openpyxl
 
@@ -30,6 +31,20 @@ class _Excel:
 
         self.words = list(self.data.keys())
         self.langs = list(self.data[self.words[0]].keys())
+
+    def gen_words_keys(self):
+        if len(self.words) <= 25:
+            tmp = [chr(ltr) for ltr in range(66, (66 + len(self.words)))]
+            return tmp[:len(self.words)]
+
+        tmp = [chr(ltr) for ltr in range(66, 91)]
+        letters = [chr(ltr) for ltr in range(65, 91)]
+        factor = 1
+        while True:
+            if len(tmp) >= len(self.words):
+                return tmp[:len(self.words)]
+            factor += 1
+            tmp += [''.join(tuples) for tuples in product(letters, repeat=factor)]
 
     def save_file(self):
         self._book.save(self.file_name)
