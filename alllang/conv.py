@@ -32,7 +32,7 @@ class _Excel:
         self.words = list(self.data.keys())
         self.langs = list(self.data[self.words[0]].keys())
 
-    def gen_words_keys(self):
+    def _gen_words_keys(self):
         if len(self.words) <= 25:
             tmp = [chr(ltr) for ltr in range(66, (66 + len(self.words)))]
             return tmp[:len(self.words)]
@@ -46,21 +46,31 @@ class _Excel:
             factor += 1
             tmp += [''.join(tuples) for tuples in product(letters, repeat=factor)]
 
+    def create_titles(self):
+        cols_keys = self._gen_words_keys()
+
+        for i in range(0, len(self.words)):
+            self._sheet[f'{cols_keys[i]}1'].value = self.words[i]
+
+        for j in range(0, len(self.langs)):
+            self._sheet[f'A{j + 2}'].value = self.langs[j]
+
     def save_file(self):
         self._book.save(self.file_name)
         self._book.close()
 
     def create_demo(self):
-        self._sheet['A1'].value = 10
-        self._sheet['B1'].value = 11
-        self._sheet['A2'].value = 20
-        self._sheet['B2'].value = 21
+        self._sheet['B2'].value = 'lorem'
+        self._sheet['B3'].value = 'ipsum'
+        self._sheet['B4'].value = 'dolor'
+        self._sheet['B5'].value = 'sit'
 
 
 def create_xlsx(data, dest_path=None):
     file_name = _get_file_name(dest_path, 'xlsx')
 
     table = _Excel(data=data, file_name=file_name)
+    table.create_titles()
     table.create_demo()
     table.save_file()
 
