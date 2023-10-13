@@ -3,6 +3,7 @@ name = "alllang"
 version = "0.1.0"
 description = ""
 authors = ["Dan Sazonov <p.294803@gmail.com>"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
