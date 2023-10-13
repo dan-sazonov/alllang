@@ -4,6 +4,7 @@ from datetime import datetime
 from itertools import product
 
 import openpyxl
+from openpyxl.styles import Font, Alignment
 
 
 class _Excel:
@@ -30,14 +31,22 @@ class _Excel:
             factor += 1
             tmp += [''.join(tuples) for tuples in product(letters, repeat=factor)]
 
+    def _stylize_title_cell(self, index):
+        self._sheet[index].font = Font(b=True)
+        self._sheet[index].alignment = Alignment(horizontal="center", vertical="center")
+
     def create_titles(self):
         cols_keys = self._gen_words_keys()
 
         for word_title_index in range(0, len(self._words)):
-            self._sheet[f'{cols_keys[word_title_index]}1'].value = self._words[word_title_index]
+            cell_index = f'{cols_keys[word_title_index]}1'
+            self._sheet[cell_index].value = self._words[word_title_index]
+            self._stylize_title_cell(cell_index)
 
         for lang_title_index in range(0, len(self._langs)):
-            self._sheet[f'A{lang_title_index + 2}'].value = self._langs[lang_title_index]
+            cell_index = f'A{lang_title_index + 2}'
+            self._sheet[cell_index].value = self._langs[lang_title_index]
+            self._stylize_title_cell(cell_index)
 
     def add_data(self):
         col_index = 0  # column numbering starts from zero, rows from one
