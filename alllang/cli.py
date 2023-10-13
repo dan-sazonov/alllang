@@ -3,7 +3,10 @@ import colorama
 
 
 class _ColorMethods:
-    # todo add fucking docstring
+    """
+    Colorama's methods and functions to simplify text coloring
+    """
+
     def __init__(self):
         colorama.init()
         self.reset = colorama.Style.RESET_ALL
@@ -13,8 +16,10 @@ class _ColorMethods:
         self.bright = colorama.Style.BRIGHT
         self.dim = colorama.Style.DIM
 
-    def red_txt(self, txt): return f"{self.red}{txt}{self.reset}"
-    def yel_txt(self, txt): return f"{self.yellow}{txt}{self.reset}"
+    # coloring text from txt-param:
+    def red_txt(self, txt: str) -> str: return f"{self.red}{txt}{self.reset}"
+
+    def yel_txt(self, txt: str) -> str: return f"{self.yellow}{txt}{self.reset}"
 
 
 _c = _ColorMethods()
