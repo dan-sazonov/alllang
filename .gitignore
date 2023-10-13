@@ -160,6 +160,10 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
+# Logs and input/output files
+tests/*.xlsx
+tests/*.json
+tests/*.txt
+
 # todo delete this after creating tests!
 tests/example.py
-tests/words_list.txt
