@@ -2,8 +2,6 @@ from unidecode import unidecode
 from deep_translator import GoogleTranslator
 import re
 
-_lang_list = list(GoogleTranslator().get_supported_languages())
-
 
 def _file_to_list(path) -> list[str]:
     """
@@ -28,7 +26,8 @@ def _is_latin(string):
 class Translator:
 
     def __init__(self, lang_list=None, latin_spelling=False):
-        self.lang_list = lang_list if lang_list else _lang_list
+        self.supported_langs = list(GoogleTranslator().get_supported_languages())
+        self.lang_list = lang_list if lang_list else self.supported_langs
         self.latin_spelling = latin_spelling
 
     def set_lang_list(self, lang_list):
