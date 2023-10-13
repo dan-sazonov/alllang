@@ -1,7 +1,23 @@
 import os
-import alllang.config as config
+import colorama
 
-_c = config.ColorMethods()
+
+class _ColorMethods:
+    # todo add fucking docstring
+    def __init__(self):
+        colorama.init()
+        self.reset = colorama.Style.RESET_ALL
+        self.red = colorama.Fore.RED
+        self.green = colorama.Fore.GREEN
+        self.yellow = colorama.Fore.YELLOW
+        self.bright = colorama.Style.BRIGHT
+        self.dim = colorama.Style.DIM
+
+    def red_txt(self, txt): return f"{self.red}{txt}{self.reset}"
+    def yel_txt(self, txt): return f"{self.yellow}{txt}{self.reset}"
+
+
+_c = _ColorMethods()
 
 
 def is_txt_file(path: str) -> bool:
@@ -14,11 +30,11 @@ def is_txt_file(path: str) -> bool:
     flag = True
 
     if (not os.path.exists(path)) or (not os.path.isfile(path)):
-        print(f"{_c.red}[err]{_c.reset} Path of the file is Invalid")
+        print(f"{_c.red_txt('[err]')} Path of the file is Invalid")
         flag = False
 
     if not path.endswith('.txt'):
-        print(f"{_c.yellow}[warn]{_c.reset} The path does not go to a text file, encoding error is possible")
+        print(f"{_c.yel_txt('[warn]')} The path does not go to a text file, encoding error is possible")
         flag = False
 
     return flag
