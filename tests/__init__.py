@@ -1,1 +1,2 @@
-#empty
+print("Error: no test specified")
+exit(1)
