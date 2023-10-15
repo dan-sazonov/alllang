@@ -165,5 +165,4 @@ tests/*.xlsx
 tests/*.json
 tests/*.txt
 
-# todo delete this after creating tests!
-tests/example.py
+!tests/words_list.txt
